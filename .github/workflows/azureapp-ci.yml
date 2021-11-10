@@ -14,7 +14,7 @@ jobs:
        IMAGE_NAME: springboot-petclinic-actions
        REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
        REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-       ##TAGS: v1
+       TAGS: v1
 
     steps:
     - uses: actions/checkout@v2
@@ -45,8 +45,8 @@ jobs:
     
     - name: tagging the image to push to ACR
       run: |-
-        docker tag $IMAGE_NAME pwcinfradockerrg.azurecr.io/$IMAGE_NAME:${{ github.sha }}
+        docker tag $IMAGE_NAME pwcinfradockerrg.azurecr.io/$IMAGE_NAME:$TAGS
         
     - name: Push image to ACR
       run: |-
-        docker push pwcinfradockerrg.azurecr.io/$IMAGE_NAME:${{ github.sha }}
+        docker push pwcinfradockerrg.azurecr.io/$IMAGE_NAME:$TAGS
