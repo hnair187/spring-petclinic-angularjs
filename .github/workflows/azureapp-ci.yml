@@ -61,15 +61,12 @@ jobs:
 
       # exection permission
     - name: adding execution mode
-      # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: chmod +x mvnw
 
     - name: Build with Maven Wrapper
-      # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: ./mvnw clean install
 
     - name: ACR login
-      # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       uses: azure/docker-login@v1
       with:
             login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
@@ -77,17 +74,15 @@ jobs:
             password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - name: change to server directory and build
-      # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |-
         cd spring-petclinic-server ; 
         mvn clean package docker:build
     
     - name: tagging the image to push to ACR
-      # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |-
         docker tag $IMAGE_NAME ${{ env.REGISTRY_NAME }}.azurecr.io/$IMAGE_NAME:$TAGS
         
     - name: Push image to ACR
-      # if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      
       run: |-
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/$IMAGE_NAME:$TAGS
