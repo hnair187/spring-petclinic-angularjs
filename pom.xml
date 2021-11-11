@@ -9,7 +9,7 @@
     </parent>
 
 	<properties>
-       <sonar.projectKey>springpetclinic</sonar.projectKey>
+       <sonar.projectKey>springbootpetclinic</sonar.projectKey>
     </properties>
 
 	<groupId>org.springframework.samples</groupId>
