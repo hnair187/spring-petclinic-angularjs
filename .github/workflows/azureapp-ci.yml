@@ -1,8 +1,4 @@
 name: Java App CI/CD for Azure Kubernetes Deployment
-
-on:
-  push:
-    branches: [ master ]
 jobs:
   sonar:
     name: Sonar CodeCheck
