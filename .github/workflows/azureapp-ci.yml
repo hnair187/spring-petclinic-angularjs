@@ -1,14 +1,14 @@
-name: Java CI with Maven
+name: Java App CI/CD for Azure Kubernetes Deployment
 
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
 jobs:
   sonar:
     name: Sonar CodeCheck
+    on:
+      pull_request:
+        branches: [ master ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -39,6 +39,9 @@ jobs:
 
   artifact:
     name: ACR image build and push
+    on:
+      push:
+        branches: [ master ]
     runs-on: ubuntu-latest
     needs: [sonar]
     env:
