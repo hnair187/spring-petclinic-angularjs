@@ -139,12 +139,11 @@ jobs:
         namespace: ${{ env.NAMESPACE }}  
 
   Dast:
-    name: Deploy to Kubernetes
+    name: Dynamic Testing
     runs-on: ubuntu-latest
     needs: [sonar, artifact, Deploy]
     
     steps:
-      - name: OWASP ZAP Full Scan
       - uses: zaproxy/action-full-scan@v0.3.0
         with:
           token: ${{ github.token }}
