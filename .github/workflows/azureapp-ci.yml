@@ -49,7 +49,7 @@ jobs:
        REGISTRY_NAME: pwcinfradockerrg
        REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
        REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-       TAGS: v1
+       TAGS: v2
 
     steps:
     - uses: actions/checkout@v2
@@ -137,3 +137,14 @@ jobs:
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}  
+
+  Dast:
+    name: Dynamic Testing
+    runs-on: ubuntu-latest
+    needs: [sonar, artifact, Deploy]
+    
+    steps:
+      - uses: zaproxy/action-full-scan@v0.3.0
+        with:
+          token: ${{ github.token }}
+          target: http://20.190.250.28:8080/
